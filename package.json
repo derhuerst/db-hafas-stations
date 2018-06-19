@@ -24,9 +24,19 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"compute-db-station-weight": "^0.2.1",
+		"db-hafas": "^2.1.0",
+		"discover-db-stations": "^1.0.0",
+		"hafas-estimate-station-weight": "^1.0.0",
+		"ms": "^2.1.1",
+		"ndjson": "^1.5.0",
+		"progress-stream": "^2.0.0",
+		"pump": "^3.0.0",
+		"through2-concurrent": "^1.1.1"
 	},
 	"devDependencies": {},
 	"scripts": {
+		"build": "node build/index.js",
 		"test": "env NODE_ENV=dev node test.js",
 		"prepublishOnly": "npm test"
 	}
