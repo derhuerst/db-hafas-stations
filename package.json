@@ -1,0 +1,33 @@
+{
+	"name": "db-hafas-stations",
+	"description": "A list of DB stations, taken from HAFAS.",
+	"version": "0.1.0",
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"data.ndjson",
+		"full.ndjson"
+	],
+	"keywords": [
+		"db",
+		"deutsche bahn",
+		"stations",
+		"hafas",
+		"list"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/db-hafas-stations",
+	"repository": "derhuerst/db-hafas-stations",
+	"bugs": "https://github.com/derhuerst/db-hafas-stations/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "env NODE_ENV=dev node test.js",
+		"prepublishOnly": "npm test"
+	}
+}
