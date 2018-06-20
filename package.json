@@ -29,7 +29,7 @@
 	"devDependencies": {
 		"compute-db-station-weight": "^0.2.1",
 		"db-hafas": "^2.1.0",
-		"hafas-discover-stations": "^1.0.0",
+		"hafas-discover-stations": "^2.0.0",
 		"hafas-estimate-station-weight": "^1.0.0",
 		"ms": "^2.1.1",
 		"progress-stream": "^2.0.0",
