@@ -13,14 +13,17 @@ const walk = createWalk(throttledHafas)
 
 const maxIterations = 30
 const weight0Msg = `\
-has a weight of 0. Probably there are no departures here.`
+has a weight of 0. Probably there are no departures here. Using weight 1.`
 
 const estimateStationWeight = createEstimate(throttledHafas, weights)
 const computeWeight = (s, _, cb) => {
 	estimateStationWeight(s.id + '', maxIterations)
 	.then(weight => {
-		if (weight === 0) console.error(s.id + '', s.name, weight0Msg)
-		else s.weight = weight
+		if (weight === 0 || weight === null) {
+			console.error(s.id + '', s.name, weight0Msg)
+			weight = 1
+		}
+		s.weight = weight
 		cb(null, s)
 	})
 	.catch((err) => {
