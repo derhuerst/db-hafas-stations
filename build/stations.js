@@ -11,6 +11,9 @@ const pump = require('pump')
 const throttledHafas = throttle(10, 1000) // 10 reqs/s
 const walk = createWalk(throttledHafas)
 
+const leadingZeros = /0+/
+const parseStationId = id => id && id.replace(leadingZeros, '')
+
 const maxIterations = 30
 const weight0Msg = `\
 has a weight of 0. Probably there are no departures here. Using weight 1.`
@@ -37,7 +40,7 @@ const computeWeight = (s, _, cb) => {
 const berlinHbf = '8011160'
 
 const download = () => {
-	const data = walk(berlinHbf)
+	const data = walk(berlinHbf, {parseStationId})
 	const weight = concurrentThrough.obj({maxConcurrency: 5}, computeWeight)
 	const progess = progressStream({objectMode: true})
 
