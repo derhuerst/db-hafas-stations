@@ -20,6 +20,8 @@ has a weight of 0. Probably there are no departures here. Using weight 1.`
 
 const estimateStationWeight = createEstimate(throttledHafas, weights)
 const computeWeight = (s, _, cb) => {
+	s.id = parseStationId(s.id)
+
 	estimateStationWeight(s.id + '', maxIterations)
 	.then(weight => {
 		if (weight === 0 || weight === null) {
