@@ -11,8 +11,14 @@ const pump = require('pump')
 const throttledHafas = throttle(10, 1000) // 10 reqs/s
 const walk = createWalk(throttledHafas)
 
-const leadingZeros = /0+/
-const parseStationId = id => id && id.replace(leadingZeros, '')
+const minute = 60 * 1000
+
+const leadingZeros = /^0+/
+const parseStationId = (id) => {
+	if (!id) throw new Error('invalid id: ' + id)
+	id = id.replace(leadingZeros, '')
+	return id.length < 6 ? '0'.repeat(6 - id.length) + id : id
+}
 
 const maxIterations = 30
 const weight0Msg = `\
@@ -42,13 +48,11 @@ const computeWeight = (s, _, cb) => {
 const berlinHbf = '8011160'
 
 const download = () => {
-	const data = walk(berlinHbf, {parseStationId})
+	const data = walk(berlinHbf, {parseStationId, concurrency: 5})
 	const weight = concurrentThrough.obj({maxConcurrency: 5}, computeWeight)
-	const progess = progressStream({objectMode: true})
+	const progess = progressStream({objectMode: true, speed: minute})
 
-	data.on('stats', ({requests, stations, edges, queued}) => {
-		progess.setLength(stations + queued)
-	})
+	data.on('stats', ({stations}) => progess.setLength(stations))
 
 	return pump(data, weight, progess, (err) => {})
 }
