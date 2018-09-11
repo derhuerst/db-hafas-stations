@@ -5,7 +5,7 @@
 *Warning*: This module does not contain stations without an [IBNR](https://de.wikipedia.org/wiki/Internationale_Bahnhofsnummer).
 
 [![npm version](https://img.shields.io/npm/v/db-hafas-stations.svg)](https://www.npmjs.com/package/db-hafas-stations)
-[![build status](https://img.shields.io/codeship/28b60ee0-55de-0136-071a-561f2b18c79f/master.svg)](https://app.codeship.com/projects/268749)
+[![build status](https://app.codeship.com/projects/28b60ee0-55de-0136-071a-561f2b18c79f/status?branch=master)](https://app.codeship.com/projects/294654)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/db-hafas-stations.svg)
 [![chat with me on Gitter](https://img.shields.io/badge/chat%20with%20me-on%20gitter-512e92.svg)](https://gitter.im/derhuerst)
 [![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
