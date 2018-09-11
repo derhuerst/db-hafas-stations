@@ -27,8 +27,8 @@
 		"ndjson": "^1.5.0"
 	},
 	"devDependencies": {
-		"compute-db-station-weight": "^0.2.1",
-		"db-hafas": "^3.0.0-alpha.10",
+		"compute-db-station-weight": "^1.0.0",
+		"db-hafas": "^3.0.1",
 		"hafas-discover-stations": "^2.1.0",
 		"hafas-estimate-station-weight": "^1.0.0",
 		"is-roughly-equal": "^0.1.0",
@@ -38,7 +38,7 @@
 		"pump": "^3.0.0",
 		"tap-min": "^1.2.2",
 		"tape": "^4.9.1",
-		"through2-concurrent": "^1.1.1",
+		"through2-concurrent": "^2.0.0",
 		"validate-fptf": "^2.0.1"
 	},
 	"scripts": {

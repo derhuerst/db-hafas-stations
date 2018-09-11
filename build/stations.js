@@ -1,14 +1,14 @@
 'use strict'
 
 const createWalk = require('hafas-discover-stations')
-const throttle = require('db-hafas/throttle')
+const createThrottledHafas = require('db-hafas/throttle')
 const createEstimate = require('hafas-estimate-station-weight')
 const weights = require('compute-db-station-weight/lib/weights')
 const concurrentThrough = require('through2-concurrent')
 const progressStream = require('progress-stream')
 const pump = require('pump')
 
-const throttledHafas = throttle(10, 1000) // 10 reqs/s
+const throttledHafas = createThrottledHafas('db-hafas-stations build', 10, 1000) // 10 reqs/s
 const walk = createWalk(throttledHafas)
 
 const minute = 60 * 1000
