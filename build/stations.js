@@ -26,12 +26,10 @@ has a weight of 0. Probably there are no departures here. Using weight 1.`
 
 const estimateStationWeight = createEstimate(throttledHafas, weights)
 const computeWeight = (s, _, cb) => {
-	s.id = parseStationId(s.id)
-
-	estimateStationWeight(s.id + '', maxIterations)
+	estimateStationWeight(s.id, maxIterations)
 	.then(weight => {
 		if (weight === 0 || weight === null) {
-			console.error(s.id + '', s.name, weight0Msg)
+			console.error(s.id, s.name, weight0Msg)
 			weight = 1
 		}
 		s.weight = weight
@@ -39,7 +37,7 @@ const computeWeight = (s, _, cb) => {
 	})
 	.catch((err) => {
 		if (err.isHafasError) {
-			console.error(s.id + '', s.name, err.message || (err + ''))
+			console.error(s.id, s.name, err && err.message || (err + ''))
 			cb(null)
 		} else cb(err)
 	})
@@ -48,7 +46,7 @@ const computeWeight = (s, _, cb) => {
 const berlinHbf = '8011160'
 
 const download = () => {
-	const data = walk(berlinHbf, {parseStationId, concurrency: 5})
+	const data = walk(berlinHbf, {parseStationId, concurrency: 5, stationLines: true})
 	const weight = concurrentThrough.obj({maxConcurrency: 5}, computeWeight)
 	const progess = progressStream({objectMode: true, speed: minute})
 

@@ -17,6 +17,8 @@
 npm install db-hafas-stations
 ```
 
+*Note:* This Git repo does not contain the data, but the npm package does.
+
 
 ## Usage
 
