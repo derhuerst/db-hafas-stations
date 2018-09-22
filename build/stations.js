@@ -52,7 +52,10 @@ const download = () => {
 
 	data.on('stats', ({stations}) => progess.setLength(stations))
 
-	return pump(data, weight, progess, (err) => {})
+	return pump(data, weight, progess, (err) => {
+		console.error(err)
+		process.exitCode = 1
+	})
 }
 
 module.exports = download
