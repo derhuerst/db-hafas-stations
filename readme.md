@@ -47,6 +47,15 @@ stations()
 // …
 ```
 
+`stations.full()` returns a with more fields per object.
+
+
+## Related
+
+- [`db-hafas-stations-autocomplete`](https://github.com/derhuerst/db-hafas-stations-autocomplete#db-stations-autocomplete) – Search for stations of DB (data from HAFAS).
+- [`db-stations`](https://github.com/derhuerst/db-stations#db-stations) – A collection of all stations of Deutsche Bahn, computed from open data.
+- [`hafas-discover-stations`](https://github.com/derhuerst/hafas-discover-stations#hafas-discover-stations) – Pass in a HAFAS client, discover stations by querying departures.
+
 
 ## Contributing
 
