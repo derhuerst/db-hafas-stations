@@ -54,7 +54,8 @@ const download = () => {
 	const weight = concurrentThrough.obj({maxConcurrency: 5}, computeWeight)
 	const progess = progressStream({objectMode: true, speed: minute})
 
-	data.on('stats', ({stations}) => progess.setLength(stations))
+	data.on('stats', ({stopsAndStations}) => progess.setLength(stopsAndStations))
+	data.on('hafas-error', console.error)
 
 	return pump(data, weight, progess, (err) => {
 		console.error(err)

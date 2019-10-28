@@ -19,15 +19,16 @@ const stations = getStations()
 
 const progressInterval = setInterval(() => {
 	const p = stations.progress()
+	const percentage = Math.round(p.percentage) + '%'
+	const count = p.transferred + '/' + p.length
+	const speed = p.speed.toFixed(1) + '/s'
+	const eta = Number.isNaN(p.eta) ? '?' : p.eta === Infinity ? 'Infinity' : ms(p.eta * 1000)
 	console.info([
-		Math.round(p.percentage) + '%',
-		'–',
-		p.transferred + '/' + p.length,
-		'–',
-		Math.round(p.speed) + '/s',
-		'–',
-		'ETA: ' + ms(p.eta * 1000)
-	].join(' '))
+		percentage,
+		count,
+		speed,
+		'ETA: ' + eta
+	].join(' – '))
 }, 5 * 1000)
 
 stations.once('end', () => clearInterval(progressInterval))
