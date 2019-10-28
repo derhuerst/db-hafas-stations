@@ -1,6 +1,7 @@
 'use strict'
 
 const withThrottling = require('hafas-client/throttle')
+const withRetrying = require('hafas-client/retry')
 const createHafas = require('hafas-client')
 const dbProfile = require('hafas-client/p/db')
 const createWalk = require('hafas-discover-stations')
@@ -12,10 +13,10 @@ const pump = require('pump')
 
 const userAgent = 'db-hafas-stations build'
 const createThrottledHafas = withThrottling(createHafas, 10, 1000) // 10 reqs/s)
-const hafas = createThrottledHafas(dbProfile, userAgent)
-const walk = createWalk(hafas)
-
-const minute = 60 * 1000
+const createRetryingThrottledHafas = withRetrying(createThrottledHafas, {
+	retries: 1
+})
+const hafas = createRetryingThrottledHafas(dbProfile, userAgent)
 
 const leadingZeros = /^0+/
 const parseStationId = (id) => {
@@ -48,7 +49,9 @@ const computeWeight = (s, _, cb) => {
 }
 
 const berlinHbf = '8011160'
+const minute = 60 * 1000
 
+const walk = createWalk(hafas)
 const download = () => {
 	const data = walk(berlinHbf, {parseStationId, concurrency: 5, stationLines: true})
 	const weight = concurrentThrough.obj({maxConcurrency: 5}, computeWeight)
