@@ -27,19 +27,19 @@
 		"ndjson": "^1.5.0"
 	},
 	"devDependencies": {
-		"compute-db-station-weight": "^1.0.0",
+		"compute-db-station-weight": "^2.0.0",
 		"hafas-client": "^4.6.0",
 		"hafas-discover-stations": "^3.0.0",
-		"hafas-estimate-station-weight": "^1.0.0",
+		"hafas-estimate-station-weight": "^2.0.0",
 		"is-roughly-equal": "^0.1.0",
-		"is-stream": "^1.1.0",
+		"is-stream": "^2.0.0",
 		"ms": "^2.1.1",
 		"progress-stream": "^2.0.0",
 		"pump": "^3.0.0",
-		"tap-min": "^1.2.2",
+		"tap-min": "^2.0.0",
 		"tape": "^4.9.1",
 		"through2-concurrent": "^2.0.0",
-		"validate-fptf": "^2.0.1"
+		"validate-fptf": "^3.0.0"
 	},
 	"scripts": {
 		"build": "node build/index.js",
