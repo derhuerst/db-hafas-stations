@@ -8,7 +8,7 @@ const validate = require('validate-fptf')()
 const stations = require('.')
 
 const assertIsValidStation = (t, s) => {
-	t.equal(s.type, 'station')
+	t.ok(s.type === 'station' || s.type === 'stop')
 	t.equal(typeof s.id, 'string')
 	t.ok(s.id)
 	t.equal(typeof s.name, 'string')
@@ -61,7 +61,7 @@ test('full.ndjson contains valid full stations', (t) => {
 	.on('data', (s) => {
 		assertIsValidStation(t, s)
 		try {
-			validate(s, 'station')
+			validate(s, ['station', 'stop'])
 		} catch (err) {
 			t.ifError(err)
 		}

@@ -33,6 +33,7 @@
 		"hafas-estimate-station-weight": "^2.0.0",
 		"is-roughly-equal": "^0.1.0",
 		"is-stream": "^2.0.0",
+		"lodash": "^4.17.15",
 		"ms": "^2.1.1",
 		"progress-stream": "^2.0.0",
 		"pump": "^3.0.0",

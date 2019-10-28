@@ -7,7 +7,9 @@ const dbProfile = require('hafas-client/p/db')
 const createWalk = require('hafas-discover-stations')
 const createEstimate = require('hafas-estimate-station-weight')
 const weights = require('compute-db-station-weight/lib/weights')
+const omit = require('lodash/omit')
 const concurrentThrough = require('through2-concurrent')
+const {Transform} = require('stream')
 const progressStream = require('progress-stream')
 const pump = require('pump')
 
@@ -48,8 +50,21 @@ const computeWeight = (s, _, cb) => {
 	})
 }
 
+const fixStopsWithoutStation = (s, _, cb) => {
+	if (s.type !== 'stop') return cb(null, s)
+	return cb(null, {
+		type: 'station',
+		...omit(s, ['type', 'station'])
+	})
+}
+
 const berlinHbf = '8011160'
 const minute = 60 * 1000
+
+const abortWithError = (err) => {
+	console.error(err)
+	process.exit(1)
+}
 
 const walk = createWalk(hafas)
 const download = () => {
@@ -60,10 +75,16 @@ const download = () => {
 	data.on('stats', ({stopsAndStations}) => progess.setLength(stopsAndStations))
 	data.on('hafas-error', console.error)
 
-	return pump(data, weight, progess, (err) => {
-		console.error(err)
-		process.exitCode = 1
-	})
+	return pump(
+		data,
+		weight,
+		new Transform({
+			objectMode: true,
+			transform: fixStopsWithoutStation
+		}),
+		progess,
+		abortWithError
+	)
 }
 
 module.exports = download
