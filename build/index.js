@@ -4,7 +4,7 @@ const pump = require('pump')
 const ndjson = require('ndjson')
 const fs = require('fs')
 const path = require('path')
-const ms = require('ms')
+const prettyMs = require('pretty-ms')
 
 const getStations = require('./stations')
 const simplify = require('./simplify')
@@ -17,6 +17,7 @@ const showError = (err) => {
 
 const stations = getStations()
 
+const ms = v => prettyMs(v, {secondsDecimalDigits: 0, unitCount: 2})
 const progressInterval = setInterval(() => {
 	const p = stations.progress()
 	const percentage = Math.round(p.percentage) + '%'
