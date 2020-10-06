@@ -1,6 +1,6 @@
 'use strict'
 
-const pump = require('pump')
+const {pipeline: pump} = require('stream')
 const ndjson = require('ndjson')
 const fs = require('fs')
 const path = require('path')

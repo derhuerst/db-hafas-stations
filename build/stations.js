@@ -9,16 +9,15 @@ const createEstimate = require('hafas-estimate-station-weight')
 const weights = require('compute-db-station-weight/lib/weights')
 const omit = require('lodash/omit')
 const concurrentThrough = require('through2-concurrent')
-const {Transform} = require('stream')
+const {Transform, pipeline: pump} = require('stream')
 const progressStream = require('progress-stream')
-const pump = require('pump')
 
 const userAgent = 'db-hafas-stations build'
-const createThrottledHafas = withThrottling(createHafas, 10, 1000) // 10 reqs/s)
-const createRetryingThrottledHafas = withRetrying(createThrottledHafas, {
-	retries: 1
+const throttled = withThrottling(dbProfile, 10, 1000) // 10 reqs/s)
+const retryingThrottled = withRetrying(throttled, {
+	retries: 1,
 })
-const hafas = createRetryingThrottledHafas(dbProfile, userAgent)
+const hafas = createHafas(retryingThrottled, userAgent)
 
 const leadingZeros = /^0+/
 const parseStationId = (id) => {
