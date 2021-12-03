@@ -17,9 +17,9 @@ const progressStream = require('progress-stream')
 const pPipeline = promisify(pipeline)
 
 const userAgent = 'db-hafas-stations build'
-const throttled = withThrottling(dbProfile, 10, 1000) // 10 reqs/s)
+const throttled = withThrottling(dbProfile, 3, 1000) // 3 reqs/s)
 const retryingThrottled = withRetrying(throttled, {
-	retries: 1,
+	retries: 2,
 })
 const hafas = createHafas(retryingThrottled, userAgent)
 
@@ -30,7 +30,7 @@ const parseStationId = (id) => {
 	return id.length < 6 ? '0'.repeat(6 - id.length) + id : id
 }
 
-const maxIterations = 20
+const maxIterations = 10
 const weight0Msg = `\
 has a weight of 0. Probably there are no departures here. Using weight 1.`
 
