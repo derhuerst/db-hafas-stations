@@ -28,6 +28,7 @@
 	},
 	"devDependencies": {
 		"compute-db-station-weight": "^3.0.0",
+		"eslint": "^8.3.0",
 		"hafas-client": "^5.9.0",
 		"hafas-discover-stations": "^4.2.1",
 		"hafas-estimate-station-weight": "^3.0.0",
@@ -44,8 +45,9 @@
 		"validate-fptf": "^3.0.0"
 	},
 	"scripts": {
+		"lint": "eslint .",
 		"build": "node build/index.js",
 		"test": "env NODE_ENV=dev node test.js | tap-min",
-		"prepublishOnly": "npm test"
+		"prepublishOnly": "npm run lint && npm test"
 	}
 }
