@@ -29,8 +29,9 @@
 	"devDependencies": {
 		"compute-db-station-weight": "^3.0.0",
 		"hafas-client": "^5.9.0",
-		"hafas-discover-stations": "^4.0.0",
+		"hafas-discover-stations": "^4.2.1",
 		"hafas-estimate-station-weight": "^3.0.0",
+		"hafas-find-stations": "^2.1.0",
 		"is-roughly-equal": "^0.1.0",
 		"is-stream": "^3.0.0",
 		"lodash": "^4.17.15",
