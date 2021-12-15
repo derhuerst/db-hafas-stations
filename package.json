@@ -37,7 +37,6 @@
 		"is-stream": "^3.0.0",
 		"lodash": "^4.17.15",
 		"ms": "^2.1.1",
-		"progress-stream": "^2.0.0",
 		"pump": "^3.0.0",
 		"tap-min": "^2.0.0",
 		"tape": "^5.0.1",
@@ -46,7 +45,7 @@
 	},
 	"scripts": {
 		"lint": "eslint .",
-		"build": "node build/index.js",
+		"build": "node build/stations.js | node build/stations-weight.js | node build/index.js",
 		"test": "env NODE_ENV=dev node test.js | tap-min",
 		"prepublishOnly": "npm run lint && npm test"
 	}

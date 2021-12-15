@@ -4,9 +4,7 @@ const {pipeline: pump} = require('stream')
 const ndjson = require('ndjson')
 const fs = require('fs')
 const path = require('path')
-const prettyMs = require('pretty-ms')
 
-const getStations = require('./stations')
 const simplify = require('./simplify')
 
 const showError = (err) => {
@@ -15,25 +13,8 @@ const showError = (err) => {
 	process.exit(1)
 }
 
-const stations = getStations()
-
-const ms = v => prettyMs(v, {secondsDecimalDigits: 0, unitCount: 2})
-const progressInterval = setInterval(() => {
-	const p = stations.progress()
-	const percentage = Math.round(p.percentage) + '%'
-	const count = p.transferred + '/' + p.length
-	const speed = p.speed.toFixed(1) + '/s'
-	const eta = Number.isNaN(p.eta) ? '?' : p.eta === Infinity ? 'Infinity' : ms(p.eta * 1000)
-	console.info([
-		percentage,
-		count,
-		speed,
-		'ETA: ' + eta
-	].join(' – '))
-}, 5 * 1000)
-
-stations.once('end', () => clearInterval(progressInterval))
-stations.once('error', () => clearInterval(progressInterval))
+const stations = ndjson.parse()
+process.stdin.pipe(stations)
 
 pump(
 	stations,
