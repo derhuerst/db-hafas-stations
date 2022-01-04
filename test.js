@@ -78,8 +78,8 @@ test('full.ndjson contains Berlin Jungfernheide', (t) => {
 	.on('data', (s) => {
 		if (s.id === '8011167') {
 			assertIsJungfernheide(t, s)
-			t.ok(isRoughlyEqual(.0001, s.location.latitude, 52.530408))
-			t.ok(isRoughlyEqual(.0001, s.location.longitude, 13.299424))
+			t.ok(isRoughlyEqual(.001, s.location.latitude, 52.530291))
+			t.ok(isRoughlyEqual(.001, s.location.longitude, 13.299451))
 
 			stream.destroy()
 			t.end()
