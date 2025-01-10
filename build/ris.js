@@ -35,22 +35,22 @@ const DEFAULT_PRODUCTS = {
 };
 
 const RIS_PRODUCTS_MAPPING = {
-    HIGH_SPEED_TRAIN: { product: 'nationalExpress', weight: 30 },
-    INTERCITY_TRAIN: { product: 'national', weight: 20 },
-    INTER_REGIONAL_TRAIN: { product: 'regionalExpress', weight: 10 },
-    REGIONAL_TRAIN: { product: 'regional', weight: 10 },
-    CITY_TRAIN: { product: 'suburban', weight: 10 },
-    SUBWAY: { product: 'subway', weight: 5 },
-    TRAM: { product: 'tram:', weight: 1 },
-    BUS: { product: 'bus', weight: 1 },
-    TAXI: { product: 'taxi', weight: 1 },
-    FERRY: { product: 'ferry', weight: 1 },
-    SHUTTLE: { product: 'bus', weight: 1 }
+    HIGH_SPEED_TRAIN: { product: 'nationalExpress', weight: 3 },
+    INTERCITY_TRAIN: { product: 'national', weight: 2 },
+    INTER_REGIONAL_TRAIN: { product: 'regionalExpress', weight: 1 },
+    REGIONAL_TRAIN: { product: 'regional', weight: 1 },
+    CITY_TRAIN: { product: 'suburban', weight: 1 },
+    SUBWAY: { product: 'subway', weight: 0.5 },
+    TRAM: { product: 'tram:', weight: 0.2 },
+    BUS: { product: 'bus', weight: 0.1 },
+    TAXI: { product: 'taxi', weight: 0.1 },
+    FERRY: { product: 'ferry', weight: 0.2 },
+    SHUTTLE: { product: 'taxi', weight: 0.1 }
 }
 
-const MEMBER_WEIGHT = 2;
+const MEMBER_WEIGHT = 0.2;
 const LOWEST_PRICE_CATEGORY = 8;
-const PRICE_CATEGORY_WEIGHT = 5;
+const PRICE_CATEGORY_WEIGHT = 0.5;
 
 const DAY_MAPPING = {
     "monday": 'Mo',
@@ -218,7 +218,7 @@ const discoverStadaStations = async () => {
 }
 
 const calculateWeight = (stop) => {
-    let sum = 1;
+    let sum = 0.1;
     for (let product of stop.availableTransports) {
         if (RIS_PRODUCTS_MAPPING[product]) {
             sum += RIS_PRODUCTS_MAPPING[product].weight;
@@ -228,7 +228,7 @@ const calculateWeight = (stop) => {
     if (stop.additionalInfo) {
         sum += Math.pow(2, Math.max(LOWEST_PRICE_CATEGORY+1-stop.additionalInfo.priceCategory, 0))*PRICE_CATEGORY_WEIGHT;
     }
-    return Math.pow(sum, 3);
+    return Math.max(0.1, Math.round(Math.pow(sum, 3)*10)/10);
 }
 
 const mergeRisStations = async (stops) => {
@@ -354,7 +354,7 @@ const verifyCompleteness = (stops) => {
             .on('data', d => {
                 if (!stops[d.id]) {
                     missing += 1;
-                    if (d.products.nationalExpress || d.products.national || d.products.nationalRegional) {
+                    if (d.products.nationalExpress || d.products.national || d.products.regionalExpress || d.products.regional || d.products.suburban) {
                         console.error('missing', d.id, d.name);
                     }
                 }
