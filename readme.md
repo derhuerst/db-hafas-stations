@@ -54,6 +54,7 @@ for await const (station of readDbHafasStations()) {
 - [`db-stations`](https://github.com/derhuerst/db-stations#db-stations) – A collection of all stations of Deutsche Bahn, computed from open data.
 - [`hafas-find-stations`](https://github.com/derhuerst/hafas-find-stations) – Given a HAFAS client, find all stations in a bounding box.
 - [`hafas-discover-stations`](https://github.com/derhuerst/hafas-discover-stations#hafas-discover-stations) – Pass in a HAFAS client, discover stations by querying departures.
+- [`db-stops-search`](https://github.com/derhuerst/db-stops-search) – Search through all stops/stations in `db-hafas-stations`. Formats and imports the stops into a Meilisearch instance.
 
 
 ## Contributing
