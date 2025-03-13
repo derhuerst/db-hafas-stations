@@ -16,6 +16,10 @@
 		"list"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
+	"contributors": [
+		"Paul Sutter <paul.sutter@moia.io>",
+		"Traines <github@traines.eu>"
+	],
 	"homepage": "https://github.com/derhuerst/db-hafas-stations",
 	"repository": "derhuerst/db-hafas-stations",
 	"bugs": "https://github.com/derhuerst/db-hafas-stations/issues",
