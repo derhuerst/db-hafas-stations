@@ -40,7 +40,7 @@
 		"hafas-find-stations": "^2.1.0",
 		"is-roughly-equal": "^0.1.0",
 		"lodash": "^4.17.15",
-		"tap-min": "^2.0.0",
+		"tap-min": "^3.0.0",
 		"tape": "^5.0.1",
 		"through2-concurrent": "^2.0.0",
 		"validate-fptf": "^3.0.0"
