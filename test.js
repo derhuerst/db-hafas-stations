@@ -1,11 +1,13 @@
-'use strict'
+import test from 'tape'
+import isStream from 'is-stream'
+import isRoughlyEqual from 'is-roughly-equal'
+import createFptfValidate from 'validate-fptf'
+import {
+	readSimplifiedStations,
+	readFullStations,
+} from './index.js'
 
-const test = require('tape')
-const isStream = require('is-stream')
-const isRoughlyEqual = require('is-roughly-equal')
-const validate = require('validate-fptf')()
-
-const stations = require('.')
+const validate = createFptfValidate()
 
 const assertIsValidStation = (t, s) => {
 	t.ok(s.type === 'station' || s.type === 'stop')
@@ -25,7 +27,7 @@ const assertIsJungfernheide = (t, s) => {
 }
 
 test('data.ndjson contains valid simplified stations', (t) => {
-	const stream = stations()
+	const stream = readSimplifiedStations()
 	t.ok(isStream.readable(stream))
 
 	stream
@@ -37,7 +39,7 @@ test('data.ndjson contains valid simplified stations', (t) => {
 })
 
 test('data.ndjson contains Berlin Jungfernheide', (t) => {
-	const stream = stations()
+	const stream = readSimplifiedStations()
 	t.ok(isStream.readable(stream))
 
 	stream
@@ -53,7 +55,7 @@ test('data.ndjson contains Berlin Jungfernheide', (t) => {
 })
 
 test('full.ndjson contains valid full stations', (t) => {
-	const stream = stations.full()
+	const stream = readFullStations()
 	t.ok(isStream.readable(stream))
 
 	stream
@@ -70,7 +72,7 @@ test('full.ndjson contains valid full stations', (t) => {
 })
 
 test('full.ndjson contains Berlin Jungfernheide', (t) => {
-	const stream = stations.full()
+	const stream = readFullStations()
 	t.ok(isStream.readable(stream))
 
 	stream

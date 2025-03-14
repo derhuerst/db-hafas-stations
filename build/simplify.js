@@ -1,8 +1,6 @@
-'use strict'
+import through from 'through2'
 
-const through = require('through2')
-
-const simplify = () => {
+const simplifyStation = () => {
 	return through.obj((data, _, cb) => {
 		cb(null, [
 			data.id,
@@ -13,4 +11,6 @@ const simplify = () => {
 	})
 }
 
-module.exports = simplify
+export {
+	simplifyStation,
+}

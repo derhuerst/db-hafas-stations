@@ -1,8 +1,6 @@
-'use strict'
+import {readSimplifiedStations} from './index.js'
 
-const readStations = require('.')
-
-readStations()
+readSimplifiedStations()
 .on('data', console.log)
 .on('error', (err) => {
 	console.error(err)

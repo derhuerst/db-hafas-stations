@@ -1,12 +1,10 @@
-'use strict'
+import {join as pathJoin} from 'node:path'
+import fs from 'node:fs'
+import ndjson from 'ndjson'
+import through from 'through2'
 
-const path = require('path')
-const fs = require('fs')
-const ndjson = require('ndjson')
-const through = require('through2')
-
-const srcSparse = path.join(__dirname, 'data.ndjson')
-const srcFull = path.join(__dirname, 'full.ndjson')
+const srcSparse = pathJoin(import.meta.dirname, 'data.ndjson')
+const srcFull = pathJoin(import.meta.dirname, 'full.ndjson')
 
 const unpackSparse = (s, _, cb) => {
 	cb(null, {
@@ -17,16 +15,18 @@ const unpackSparse = (s, _, cb) => {
 	})
 }
 
-const readSparse = () => {
+const readSimplifiedStations = () => {
 	return fs.createReadStream(srcSparse)
 	.pipe(ndjson.parse())
 	.pipe(through.obj(unpackSparse))
 }
 
-const readFull = () => {
+const readFullStations = () => {
 	return fs.createReadStream(srcFull)
 	.pipe(ndjson.parse())
 }
 
-readSparse.full = readFull
-module.exports = readSparse
+export {
+	readSimplifiedStations,
+	readFullStations,
+}

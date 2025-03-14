@@ -1,12 +1,11 @@
-'use strict'
-
-const createEstimate = require('hafas-estimate-station-weight')
-const weights = require('compute-db-station-weight/lib/weights')
-const omit = require('lodash/omit')
-const concurrentThrough = require('through2-concurrent')
-const {pipeline, Transform} = require('stream')
-const {parse, stringify} = require('ndjson')
-const hafas = require('./hafas')
+import createEstimate from 'hafas-estimate-station-weight'
+import weights from 'compute-db-station-weight/lib/weights.js'
+import omit from 'lodash/omit.js'
+import concurrentThrough from 'through2-concurrent'
+import {pipeline} from 'node:stream/promises'
+import {Transform} from 'node:stream'
+import {parse, stringify} from 'ndjson'
+import {hafas} from './hafas.js'
 
 const maxIterations = 10
 const weight0Msg = `\
@@ -39,13 +38,7 @@ const fixStopsWithoutStation = (s, _, cb) => {
 	})
 }
 
-const abortWithError = (err) => {
-	if (!err) return;
-	console.error(err)
-	process.exit(1)
-}
-
-return pipeline(
+await pipeline(
 	process.stdin,
 	parse(),
 	concurrentThrough.obj({maxConcurrency: 5}, computeWeight),
@@ -55,5 +48,4 @@ return pipeline(
 	}),
 	stringify(),
 	process.stdout,
-	abortWithError,
 )

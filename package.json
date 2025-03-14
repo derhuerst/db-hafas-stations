@@ -2,6 +2,7 @@
 	"name": "db-hafas-stations",
 	"description": "A list of DB stations, taken from HAFAS.",
 	"version": "1.1.0",
+	"type": "module",
 	"main": "index.js",
 	"files": [
 		"index.js",
@@ -32,7 +33,7 @@
 	},
 	"devDependencies": {
 		"compute-db-station-weight": "^3.0.0",
-		"eslint": "^8.3.0",
+		"eslint": "^9.22.0",
 		"hafas-client": "^5.9.0",
 		"hafas-discover-stations": "^4.2.1",
 		"hafas-estimate-station-weight": "^3.0.0",

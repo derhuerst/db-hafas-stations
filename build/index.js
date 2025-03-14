@@ -1,11 +1,8 @@
-'use strict'
-
-const {pipeline: pump} = require('stream')
-const ndjson = require('ndjson')
-const fs = require('fs')
-const path = require('path')
-
-const simplify = require('./simplify')
+import {pipeline as pump} from 'node:stream'
+import ndjson from 'ndjson'
+import fs from 'node:fs'
+import {join as pathJoin} from 'node:path'
+import {simplifyStation as simplify} from './simplify.js'
 
 const showError = (err) => {
 	if (!err) return
@@ -20,13 +17,17 @@ pump(
 	stations,
 	simplify(),
 	ndjson.stringify(),
-	fs.createWriteStream(path.join(__dirname, '../data.ndjson')),
+	fs.createWriteStream(
+		pathJoin(import.meta.dirname, '../data.ndjson'),
+	),
 	showError
 )
 
 pump(
 	stations,
 	ndjson.stringify(),
-	fs.createWriteStream(path.join(__dirname, '../full.ndjson')),
+	fs.createWriteStream(
+		pathJoin(import.meta.dirname, '../full.ndjson'),
+	),
 	showError
 )
