@@ -1,5 +1,4 @@
 import test from 'tape'
-import isStream from 'is-stream'
 import isRoughlyEqual from 'is-roughly-equal'
 import createFptfValidate from 'validate-fptf'
 import {
@@ -26,65 +25,47 @@ const assertIsJungfernheide = (t, s) => {
 	t.equal(s.name, 'Berlin Jungfernheide')
 }
 
-test('data.ndjson contains valid simplified stations', (t) => {
+test('data.ndjson contains valid simplified stations', async (t) => {
 	const stream = readSimplifiedStations()
-	t.ok(isStream.readable(stream))
 
-	stream
-	.on('error', t.ifError)
-	.on('data', (s) => {
+	for await (const s of stream) {
 		assertIsValidStation(t, s)
-	})
-	.on('end', () => t.end())
+	}
 })
 
-test('data.ndjson contains Berlin Jungfernheide', (t) => {
+test('data.ndjson contains Berlin Jungfernheide', async (t) => {
 	const stream = readSimplifiedStations()
-	t.ok(isStream.readable(stream))
 
-	stream
-	.on('error', t.ifError)
-	.on('data', (s) => {
+	for await (const s of stream) {
 		if (s.id === '8011167') {
 			assertIsJungfernheide(t, s)
 
-			stream.destroy()
-			t.end()
+			return;
 		}
-	})
+	}
+	t.fail('station not found')
 })
 
-test('full.ndjson contains valid full stations', (t) => {
+test('full.ndjson contains valid full stations', async (t) => {
 	const stream = readFullStations()
-	t.ok(isStream.readable(stream))
 
-	stream
-	.on('error', t.ifError)
-	.on('data', (s) => {
+	for await (const s of stream) {
 		assertIsValidStation(t, s)
-		try {
-			validate(s, ['station', 'stop'])
-		} catch (err) {
-			t.ifError(err)
-		}
-	})
-	.on('end', () => t.end())
+		validate(s, ['station', 'stop'])
+	}
 })
 
-test('full.ndjson contains Berlin Jungfernheide', (t) => {
+test('full.ndjson contains Berlin Jungfernheide', async (t) => {
 	const stream = readFullStations()
-	t.ok(isStream.readable(stream))
 
-	stream
-	.on('error', t.ifError)
-	.on('data', (s) => {
+	for await (const s of stream) {
 		if (s.id === '8011167') {
 			assertIsJungfernheide(t, s)
 			t.ok(isRoughlyEqual(.001, s.location.latitude, 52.530291))
 			t.ok(isRoughlyEqual(.001, s.location.longitude, 13.299451))
 
-			stream.destroy()
-			t.end()
+			return;
 		}
-	})
+	}
+	t.fail('station not found')
 })

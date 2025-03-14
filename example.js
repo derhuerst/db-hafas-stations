@@ -1,8 +1,5 @@
 import {readSimplifiedStations} from './index.js'
 
-readSimplifiedStations()
-.on('data', console.log)
-.on('error', (err) => {
-	console.error(err)
-	process.exit(1)
-})
+for await (const station of readSimplifiedStations()) {
+	console.log(station)
+}

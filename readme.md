@@ -20,7 +20,7 @@ npm install db-hafas-stations
 
 ## Usage
 
-`readSimplifiedStations()` returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) in [object mode](https://nodejs.org/api/stream.html#stream_object_mode), emitting [*Friendly Public Transport Format*](https://github.com/public-transport/friendly-public-transport-format) `station` and `stop` objects read from `db-hafas-stations/data.ndjson` (~14mb).
+`readSimplifiedStations()` is an [async generator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*) yielding [*Friendly Public Transport Format*](https://github.com/public-transport/friendly-public-transport-format) `station` and `stop` objects, read from `db-hafas-stations/data.ndjson` (~14mb).
 
 ```js
 import {
@@ -48,7 +48,7 @@ for await const (station of readSimplifiedStations()) {
 // …
 ```
 
-`readFullStations()` returns a readable stream with more fields per object, read from `db-hafas-stations/full.ndjson` (~112mb).
+`readFullStations()` is an async generator function yielding objects with more fields, read from `db-hafas-stations/full.ndjson` (~112mb).
 
 
 ## Related
