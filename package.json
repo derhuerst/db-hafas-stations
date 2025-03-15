@@ -7,7 +7,9 @@
 	"files": [
 		"index.js",
 		"data.ndjson",
-		"full.ndjson"
+		"full.ndjson",
+		"license.md",
+		"license-data.md"
 	],
 	"keywords": [
 		"db",
@@ -24,22 +26,17 @@
 	"homepage": "https://github.com/derhuerst/db-hafas-stations",
 	"repository": "derhuerst/db-hafas-stations",
 	"bugs": "https://github.com/derhuerst/db-hafas-stations/issues",
-	"license": "ISC",
+	"license": "ISC AND CC-BY-4.0 AND ODbL-1.0",
 	"engines": {
-		"node": ">=22"
+		"node": ">=18"
 	},
 	"dependencies": {
-		"ndjson": "^2.0.0"
+		"ndjson": "^2.0.0",
+		"qs": "^6.14.0"
 	},
 	"devDependencies": {
-		"compute-db-station-weight": "^3.0.0",
 		"eslint": "^9.22.0",
-		"hafas-client": "^5.9.0",
-		"hafas-discover-stations": "^4.2.1",
-		"hafas-estimate-station-weight": "^3.0.0",
-		"hafas-find-stations": "^2.1.0",
 		"is-roughly-equal": "^0.1.0",
-		"lodash": "^4.17.15",
 		"tap-min": "^3.0.0",
 		"tape": "^5.0.1",
 		"through2-concurrent": "^2.0.0",
@@ -47,8 +44,9 @@
 	},
 	"scripts": {
 		"lint": "eslint .",
-		"legacy-build": "node build/stations.js | node build/stations-weight.js | node build/index.js",
-		"build": "node build/ris.js | node build/index.js",
+		"fetch": "node build/ris-fetch.js",
+		"merge": "node build/ris-merge.js | node build/index.js",
+		"fetch-and-merge": "npm run fetch && npm run merge",
 		"test": "env NODE_ENV=dev node test.js | tap-min",
 		"prepublishOnly": "npm run lint && npm test"
 	}

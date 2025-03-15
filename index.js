@@ -1,10 +1,12 @@
-import {join as pathJoin} from 'node:path'
+import {join as pathJoin, dirname} from 'node:path'
+import {fileURLToPath} from 'node:url';
 import fs from 'node:fs'
 import ndjson from 'ndjson'
-import through from 'through2'
 
-const srcSparse = pathJoin(import.meta.dirname, 'data.ndjson')
-const srcFull = pathJoin(import.meta.dirname, 'full.ndjson')
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const srcSparse = pathJoin(__dirname, 'data.ndjson')
+const srcFull = pathJoin(__dirname, 'full.ndjson')
 
 const unpackSparse = (s) => {
 	return {
@@ -15,18 +17,18 @@ const unpackSparse = (s) => {
 	}
 }
 
-async function* readSimplifiedStations () {
+async function* readSimplifiedStations() {
 	const stations = fs.createReadStream(srcSparse)
-	.pipe(ndjson.parse())
+		.pipe(ndjson.parse())
 
 	for await (const station of stations) {
 		yield unpackSparse(station)
 	}
 }
 
-async function* readFullStations () {
+async function* readFullStations() {
 	const stations = fs.createReadStream(srcFull)
-	.pipe(ndjson.parse())
+		.pipe(ndjson.parse())
 
 	for await (const station of stations) {
 		yield station

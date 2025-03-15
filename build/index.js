@@ -1,8 +1,11 @@
 import {pipeline as pump} from 'node:stream'
 import ndjson from 'ndjson'
 import fs from 'node:fs'
-import {join as pathJoin} from 'node:path'
+import {join as pathJoin, dirname} from 'node:path'
+import {fileURLToPath} from 'node:url';
 import {simplifyStation as simplify} from './simplify.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const showError = (err) => {
 	if (!err) return
@@ -18,7 +21,7 @@ pump(
 	simplify(),
 	ndjson.stringify(),
 	fs.createWriteStream(
-		pathJoin(import.meta.dirname, '../data.ndjson'),
+		pathJoin(__dirname, '../data.ndjson'),
 	),
 	showError
 )
@@ -27,7 +30,7 @@ pump(
 	stations,
 	ndjson.stringify(),
 	fs.createWriteStream(
-		pathJoin(import.meta.dirname, '../full.ndjson'),
+		pathJoin(__dirname, '../full.ndjson'),
 	),
 	showError
 )

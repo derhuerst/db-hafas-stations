@@ -1,6 +1,6 @@
 # db-hafas-stations
 
-**All [*Deutsche Bahn* (DB)](https://en.wikipedia.org/wiki/Deutsche_Bahn) stations** returned by [their HAFAS API](https://github.com/public-transport/hafas-client/tree/2ec079adfc8a3d988190491b7e07dc03826b719e/p/db), currently about 299k.
+**All [*Deutsche Bahn* (DB)](https://en.wikipedia.org/wiki/Deutsche_Bahn) stations**, including local public transport (buses, trams...) stops,  currently about 290k. Returned by their [RIS::Stations](https://developers.deutschebahn.com/db-api-marketplace/apis/product/ris-stations) and [StaDa](https://developers.deutschebahn.com/db-api-marketplace/apis/product/stada) APIs (DB InfraGO, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and [OpenStreetMap Contributors](https://www.openstreetmap.org/copyright)). These use the same `evaNumbers` and names as the DB HAFAS that historically has been the source of this data.
 
 [![npm version](https://img.shields.io/npm/v/db-hafas-stations.svg)](https://www.npmjs.com/package/db-hafas-stations)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/db-hafas-stations.svg)
@@ -50,11 +50,14 @@ for await const (station of readSimplifiedStations()) {
 
 `readFullStations()` is an async generator function yielding objects with more fields, read from `db-hafas-stations/full.ndjson` (~112mb).
 
+## Building
+
+You need to subscribe to both the [RIS::Stations](https://developers.deutschebahn.com/db-api-marketplace/apis/product/ris-stations) and [StaDa](https://developers.deutschebahn.com/db-api-marketplace/apis/product/stada) API and set the corresponding environment variables `DB_CLIENT_ID` and  `DB_API_KEY` before running `npm run fetch` to fetch the data from the APIs (run carefully and not frequently, the quotas are very low!) and `npm run merge`.
 
 ## Related
 
 - [`db-hafas-stations-autocomplete`](https://github.com/derhuerst/db-hafas-stations-autocomplete#db-stations-autocomplete) – Search for stations of DB (data from HAFAS).
-- [`db-stations`](https://github.com/derhuerst/db-stations#db-stations) – A collection of all stations of Deutsche Bahn, computed from open data.
+- [`db-stations`](https://github.com/derhuerst/db-stations#db-stations) – A collection of just the train stations of Deutsche Bahn, computed from open data.
 - [`hafas-find-stations`](https://github.com/derhuerst/hafas-find-stations) – Given a HAFAS client, find all stations in a bounding box.
 - [`hafas-discover-stations`](https://github.com/derhuerst/hafas-discover-stations#hafas-discover-stations) – Pass in a HAFAS client, discover stations by querying departures.
 - [`db-stops-search`](https://github.com/derhuerst/db-stops-search) – Search through all stops/stations in `db-hafas-stations`. Formats and imports the stops into a Meilisearch instance.
