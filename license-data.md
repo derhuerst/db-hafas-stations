@@ -1,0 +1,3 @@
+Station data: DB InfraGO, Creative Commons Attribution 4.0 International ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)), https://developers.deutschebahn.com/db-api-marketplace/apis/product/ris-stations and https://developers.deutschebahn.com/db-api-marketplace/apis/product/stada, and [OpenStreetMap Contributors](https://www.openstreetmap.org/copyright).
+
+Source code: ISC license (see license.md)
