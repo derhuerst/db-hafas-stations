@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 const TMP_PATH = process.env.RIS_TMP_PATH || '/tmp/db-hafas-stations/';
 const STADA_FILE = 'stada.json'
 
