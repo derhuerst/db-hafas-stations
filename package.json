@@ -1,7 +1,7 @@
 {
 	"name": "db-hafas-stations",
 	"description": "A list of DB stations, taken from HAFAS.",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"type": "module",
 	"main": "index.js",
 	"files": [
@@ -48,6 +48,7 @@
 		"merge": "node build/ris-merge.js | node build/index.js",
 		"fetch-and-merge": "npm run fetch && npm run merge",
 		"test": "env NODE_ENV=dev node test.js | tap-min",
+		"build": "npm run fetch-and-merge",
 		"prepublishOnly": "npm run lint && npm test"
 	}
 }
